@@ -1,7 +1,5 @@
 # Avocado Prices Prediction 
 
----
-
 ### Saxion University of Applied Sciences
 
 **DataOps Course 2025**
@@ -47,6 +45,8 @@ This project uses Python 3.12.6.
 
 It has been written and tested on macOS. Since the project uses a virtual environment, it is recommended to use the Makefile commands to install the dependencies (only supported on macOS). If you want to install the dependencies manually (for windows users), you can run the following command:
 
+> **Note:** Make sure to run the commands in the root directory of the project and in order.
+
 1. Create a virtual environment
 
 ```cmd
@@ -70,5 +70,55 @@ For PowerShell:
 ```cmd
 python3.12 -m pip install -r requirements.txt
 ```
+
+4. Activate the kernel
+
+```cmd
+python3.12 -m ipykernel install --user --name .venv --display-name ".venv"
+```
+
+5. Run the Jupyter Notebook (optional)
+
+```cmd
+jupyter notebook --NotebookApp.kernel_name=.venv
+```
+
+> **Note:** In the Jupyter Notebook GUI, you need to select the kernel `.venv` to use the virtual environment.
+
+---
+
+For macOS / Linux users, you can use the Makefile commands to install the dependencies.
+
+1. Create a virtual environment
+
+```bash
+make venv
+```
+
+2. Activate the virtual environment
+
+```bash
+source .venv/bin/activate
+```
+
+3. Install the dependencies
+
+```bash
+make install
+```
+
+4. Activate the kernel
+
+```bash
+make kernel
+```
+
+5. Run the Jupyter Notebook (optional)
+
+```bash
+make run-jupyter
+```
+
+> **Note:** In the Jupyter Notebook GUI, you need to select the kernel `.venv` to use the virtual environment.
 
 After that, you can start exploring the project by running the Jupyter notebooks in the `notebooks` directory.
