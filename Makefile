@@ -1,82 +1,51 @@
-#################################################################################
-# GLOBALS                                                                       #
-#################################################################################
+# Define the Python version
+PYTHON_VERSION := python3.12
+VENV_DIR := .venv
+REQ_FILE := requirements.txt
 
-PROJECT_NAME = team3
-PYTHON_VERSION = 3.10
-PYTHON_INTERPRETER = python
+.PHONY: venv install freeze clean help
 
-#################################################################################
-# COMMANDS                                                                      #
-#################################################################################
+# Create virtual environment
+venv:
+	@echo "Warning: This Makefile is designed to be used on macOS. It may not work on Windows."
+	@echo "Creating virtual environment..."
+	$(PYTHON_VERSION) -m venv $(VENV_DIR)
+	@echo "Virtual environment created!"
+	@echo "To activate, run:"
+	@echo "   source $(VENV_DIR)/bin/activate"
 
+# Install dependencies
+install:
+	@echo "Warning: This Makefile is designed to be used on macOS. It may not work on Windows."
+	@if [ ! -d "$(VENV_DIR)" ]; then \
+		echo "Virtual environment not found. Please run 'make venv' first, and make sure to activate the virtual environment."; \
+		exit 1; \
+	fi
+	@echo "Installing dependencies..."
+	@bash -c "$(VENV_DIR)/bin/python -m pip install --upgrade pip && $(VENV_DIR)/bin/python -m pip install -r $(REQ_FILE)"
+	@echo "Dependencies installed successfully!"
 
-## Install Python Dependencies
-.PHONY: requirements
-requirements:
-	$(PYTHON_INTERPRETER) -m pip install -U pip
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
-	
+# Save installed dependencies to requirements.txt
+freeze:
+	@echo "Warning: This Makefile is designed to be used on macOS. It may not work on Windows."
+	@echo "Saving installed dependencies to $(REQ_FILE)..."
+	@bash -c "source $(VENV_DIR)/bin/activate && $(VENV_DIR)/bin/python -m pip freeze > $(REQ_FILE)"
+	@echo "Dependencies saved!"
 
-
-
-## Delete all compiled Python files
-.PHONY: clean
+# Remove virtual environment
 clean:
-	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -delete
+	@echo "Warning: This Makefile is designed to be used on macOS. It may not work on Windows."
+	@echo "Removing virtual environment..."
+	@rm -rf $(VENV_DIR)
+	@echo "Virtual environment removed!"
 
-## Lint using flake8 and black (use `make format` to do formatting)
-.PHONY: lint
-lint:
-	flake8 dataops_proj
-	isort --check --diff --profile black dataops_proj
-	black --check --config pyproject.toml dataops_proj
-
-## Format source code with black
-.PHONY: format
-format:
-	black --config pyproject.toml dataops_proj
-
-
-
-
-## Set up python interpreter environment
-.PHONY: create_environment
-create_environment:
-	
-	conda create --name $(PROJECT_NAME) python=$(PYTHON_VERSION) -y
-	
-	@echo ">>> conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
-	
-
-
-
-#################################################################################
-# PROJECT RULES                                                                 #
-#################################################################################
-
-
-## Make Dataset
-.PHONY: data
-data: requirements
-	$(PYTHON_INTERPRETER) dataops_proj/dataset.py
-
-
-#################################################################################
-# Self Documenting Commands                                                     #
-#################################################################################
-
-.DEFAULT_GOAL := help
-
-define PRINT_HELP_PYSCRIPT
-import re, sys; \
-lines = '\n'.join([line for line in sys.stdin]); \
-matches = re.findall(r'\n## (.*)\n[\s\S]+?\n([a-zA-Z_-]+):', lines); \
-print('Available rules:\n'); \
-print('\n'.join(['{:25}{}'.format(*reversed(match)) for match in matches]))
-endef
-export PRINT_HELP_PYSCRIPT
-
+# Show usage
 help:
-	@$(PYTHON_INTERPRETER) -c "${PRINT_HELP_PYSCRIPT}" < $(MAKEFILE_LIST)
+	@echo "Usage:"
+	@echo "  make venv     - Create virtual environment"
+	@echo "  make install  - Install dependencies inside venv"
+	@echo "  make freeze   - Save installed dependencies to requirements.txt"
+	@echo "  make clean    - Remove virtual environment"
+	@echo ""
+	@echo "After running 'make venv', activate it manually:"
+	@echo "   source $(VENV_DIR)/bin/activate"
