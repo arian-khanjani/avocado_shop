@@ -43,9 +43,11 @@ A data science project to predict the average price of avocados in the US using 
 
 This project uses Python 3.12.6. 
 
-It has been written and tested on macOS. Since the project uses a virtual environment, it is recommended to use the Makefile commands to install the dependencies (only supported on macOS). If you want to install the dependencies manually (for windows users), you can run the following command:
+Setting up the project on Windows is a bit different than on macOS / Linux. Instructions are provided below for both cases.
 
 > **Note:** Make sure to run the commands in the root directory of the project and in order.
+
+### Windows
 
 1. Create a virtual environment
 
@@ -87,7 +89,7 @@ jupyter notebook --NotebookApp.kernel_name=.venv
 
 ---
 
-For macOS / Linux users, you can use the Makefile commands to install the dependencies.
+### macOS / Linux
 
 1. Create a virtual environment
 
