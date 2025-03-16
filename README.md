@@ -36,9 +36,6 @@ A data science project to predict the average price of avocados in the US using 
 │                         the creator's initials, and a short `-` delimited description, e.g.
 │                         `1.0-jqp-initial-data-exploration`.
 │
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         dataops_proj and configuration for tools like black
-│
 └── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
                           generated with `pip freeze > requirements.txt`
 ```

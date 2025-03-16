@@ -1,6 +1,8 @@
 # Data
-/data/interim/
-/data/processed/
+/data/interim/**
+!/data/interim/.gitkeep
+/data/processed/**
+!/data/processed/.gitkeep
 
 # Mac OS-specific storage files
 .DS_Store
@@ -177,5 +179,7 @@ cython_debug/
 
 .vscode
 .idea/
-/models/prophet
-/models/sarimax
+/models/prophet/**
+!/models/prophet/.gitkeep
+/models/sarimax/**
+!/models/sarimax/.gitkeep
